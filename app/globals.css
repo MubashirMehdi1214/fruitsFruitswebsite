@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-50 text-gray-800;
+}
+
+.container-default {
+  @apply mx-auto max-w-6xl px-4;
+}
+
+.prose-blog h2 {
+  @apply mt-8 text-2xl font-bold text-gray-900;
+}
+
+.prose-blog h3 {
+  @apply mt-6 text-xl font-semibold text-gray-900;
+}
+
+.prose-blog p {
+  @apply mt-4 leading-7 text-gray-700;
+}

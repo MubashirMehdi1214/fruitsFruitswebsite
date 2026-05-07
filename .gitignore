@@ -1,0 +1,10 @@
+.next/
+node_modules/
+.env.local
+*.log
+
+# Cursor/local artifacts
+agent-transcripts/
+terminals/
+mcps/
+canvases/
