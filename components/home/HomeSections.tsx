@@ -300,37 +300,56 @@ export default function HomeSections({ posts }: Props) {
 
   return (
     <>
-      <section
-        className="relative overflow-hidden rounded-3xl text-white shadow-xl"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeSlide}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.5 }}
-            className={`grid min-h-[280px] items-center gap-5 bg-gradient-to-r p-5 sm:min-h-[320px] sm:p-6 md:min-h-[380px] md:grid-cols-2 md:gap-8 md:p-12 ${slides[activeSlide].gradient}`}
-          >
-            <div>
-              <h1 className="font-serif text-[1.45rem] font-bold leading-tight sm:text-[1.7rem] md:text-[2.5rem]">{slides[activeSlide].title}</h1>
-              <p className="mt-2 max-w-xl text-sm sm:text-base md:mt-3 md:text-lg">{slides[activeSlide].subtitle}</p>
-              <Link href={slides[activeSlide].href} className="mt-4 inline-block min-h-[44px] rounded-full bg-white px-6 py-3 font-semibold text-gray-900 md:mt-7">
-                {slides[activeSlide].cta}
-              </Link>
-            </div>
-            <SlideArt art={slides[activeSlide].art} />
-          </motion.div>
-        </AnimatePresence>
-        <button type="button" onClick={() => setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length)} className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 px-2 py-1.5 text-sm text-gray-900 md:left-3 md:px-3 md:py-2">‹</button>
-        <button type="button" onClick={() => setActiveSlide((prev) => (prev + 1) % slides.length)} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 px-2 py-1.5 text-sm text-gray-900 md:right-3 md:px-3 md:py-2">›</button>
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-          {slides.map((_, i) => (
-            <button key={i} type="button" onClick={() => setActiveSlide(i)} className={`h-2 w-2 rounded-full ${i === activeSlide ? "bg-white" : "bg-white/40"}`} />
-          ))}
+      <section className="grid gap-4 xl:grid-cols-[2fr_1fr]">
+        <div
+          className="relative overflow-hidden rounded-3xl text-white shadow-xl"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSlide}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5 }}
+              className={`grid min-h-[280px] items-center gap-5 bg-gradient-to-r p-5 sm:min-h-[320px] sm:p-6 md:min-h-[380px] md:grid-cols-2 md:gap-8 md:p-12 ${slides[activeSlide].gradient}`}
+            >
+              <div>
+                <h1 className="font-serif text-[1.45rem] font-bold leading-tight sm:text-[1.7rem] md:text-[2.5rem]">{slides[activeSlide].title}</h1>
+                <p className="mt-2 max-w-xl text-sm sm:text-base md:mt-3 md:text-lg">{slides[activeSlide].subtitle}</p>
+                <Link href={slides[activeSlide].href} className="mt-4 inline-block min-h-[44px] rounded-full bg-white px-6 py-3 font-semibold text-gray-900 md:mt-7">
+                  {slides[activeSlide].cta}
+                </Link>
+              </div>
+              <SlideArt art={slides[activeSlide].art} />
+            </motion.div>
+          </AnimatePresence>
+          <button type="button" onClick={() => setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length)} className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 px-2 py-1.5 text-sm text-gray-900 md:left-3 md:px-3 md:py-2">‹</button>
+          <button type="button" onClick={() => setActiveSlide((prev) => (prev + 1) % slides.length)} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 px-2 py-1.5 text-sm text-gray-900 md:right-3 md:px-3 md:py-2">›</button>
+          <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+            {slides.map((_, i) => (
+              <button key={i} type="button" onClick={() => setActiveSlide(i)} className={`h-2 w-2 rounded-full ${i === activeSlide ? "bg-white" : "bg-white/40"}`} />
+            ))}
+          </div>
         </div>
+
+        <aside className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+          <h2 className="mb-3 text-lg font-bold text-gray-900">Browse Categories</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {categories.map((category) => (
+              <Link
+                key={category.name}
+                href={`/category/${categorySlug(category.name)}`}
+                className={`group rounded-xl bg-gradient-to-r p-4 text-white transition hover:scale-[1.02] ${category.tone}`}
+              >
+                <p className="text-2xl">{category.icon}</p>
+                <h3 className="mt-2 text-sm font-bold leading-tight">{category.name}</h3>
+                <p className="mt-1 text-xs text-white/90">{category.count} articles</p>
+              </Link>
+            ))}
+          </div>
+        </aside>
       </section>
 
       <section className="mt-4 overflow-hidden rounded-xl bg-green-900 text-white">
@@ -360,24 +379,6 @@ export default function HomeSections({ posts }: Props) {
                 <Link href={`/blog/${post.slug}`} className="mt-3 inline-block text-sm font-semibold text-green-700">Read article</Link>
               </div>
             </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="categories" className="mt-14">
-        <h2 className="text-3xl font-bold text-gray-900">Browse by Category</h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((category) => (
-            <Link
-              key={category.name}
-              href={`/category/${categorySlug(category.name)}`}
-              className={`group rounded-2xl bg-gradient-to-r p-6 text-white transition hover:scale-[1.02] ${category.tone}`}
-            >
-              <p className="text-5xl">{category.icon}</p>
-              <h3 className="mt-4 text-xl font-bold">{category.name}</h3>
-              <p className="mt-1 text-sm text-white/90">{category.count} articles</p>
-              <p className="mt-3 text-sm font-semibold opacity-0 transition group-hover:opacity-100">Explore →</p>
-            </Link>
           ))}
         </div>
       </section>
