@@ -23,7 +23,7 @@ export default function HomePage() {
   }));
 
   return (
-    <div className="container-default py-8 md:py-10">
+    <div className="container-default pb-8 pt-2 md:pb-10 md:pt-3">
       <HomeSections posts={postsForClient} />
 
       <Script id="website-schema" type="application/ld+json">

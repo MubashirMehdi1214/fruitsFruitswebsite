@@ -96,7 +96,7 @@ const trendingHeadlines = [
 ];
 
 function SlideArt({ art }: { art: Slide["art"] }) {
-  const base = "h-52 w-full md:h-64";
+  const base = "h-40 w-full sm:h-48 md:h-64";
   if (art === "fruits") {
     return (
       <svg className={base} viewBox="0 0 360 220" aria-hidden="true">
@@ -312,20 +312,20 @@ export default function HomeSections({ posts }: Props) {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.5 }}
-            className={`grid min-h-[360px] items-center gap-8 bg-gradient-to-r p-8 md:grid-cols-2 md:p-12 ${slides[activeSlide].gradient}`}
+            className={`grid min-h-[280px] items-center gap-5 bg-gradient-to-r p-5 sm:min-h-[320px] sm:p-6 md:min-h-[380px] md:grid-cols-2 md:gap-8 md:p-12 ${slides[activeSlide].gradient}`}
           >
             <div>
-              <h1 className="font-serif text-[1.8rem] font-bold leading-tight md:text-[2.5rem]">{slides[activeSlide].title}</h1>
-              <p className="mt-3 max-w-xl text-base md:text-lg">{slides[activeSlide].subtitle}</p>
-              <Link href={slides[activeSlide].href} className="mt-7 inline-block min-h-[44px] rounded-full bg-white px-6 py-3 font-semibold text-gray-900">
+              <h1 className="font-serif text-[1.45rem] font-bold leading-tight sm:text-[1.7rem] md:text-[2.5rem]">{slides[activeSlide].title}</h1>
+              <p className="mt-2 max-w-xl text-sm sm:text-base md:mt-3 md:text-lg">{slides[activeSlide].subtitle}</p>
+              <Link href={slides[activeSlide].href} className="mt-4 inline-block min-h-[44px] rounded-full bg-white px-6 py-3 font-semibold text-gray-900 md:mt-7">
                 {slides[activeSlide].cta}
               </Link>
             </div>
             <SlideArt art={slides[activeSlide].art} />
           </motion.div>
         </AnimatePresence>
-        <button type="button" onClick={() => setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length)} className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/80 px-3 py-2 text-gray-900">‹</button>
-        <button type="button" onClick={() => setActiveSlide((prev) => (prev + 1) % slides.length)} className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/80 px-3 py-2 text-gray-900">›</button>
+        <button type="button" onClick={() => setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length)} className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 px-2 py-1.5 text-sm text-gray-900 md:left-3 md:px-3 md:py-2">‹</button>
+        <button type="button" onClick={() => setActiveSlide((prev) => (prev + 1) % slides.length)} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 px-2 py-1.5 text-sm text-gray-900 md:right-3 md:px-3 md:py-2">›</button>
         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
           {slides.map((_, i) => (
             <button key={i} type="button" onClick={() => setActiveSlide(i)} className={`h-2 w-2 rounded-full ${i === activeSlide ? "bg-white" : "bg-white/40"}`} />

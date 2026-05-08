@@ -25,11 +25,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.variable} ${merriweather.variable} font-sans`}>
         <Header />
         <div className="container-default">
-          <AdUnit slot="header" desktopOnly className="mx-auto max-w-[728px]" format="horizontal" />
+          <AdUnit slot="header" desktopOnly className="mx-auto my-2 max-w-[728px] md:my-3" format="horizontal" />
         </div>
         <main>{children}</main>
         <div className="container-default">
-          <AdUnit slot="footer" className="mx-auto max-w-[728px]" format="horizontal" />
+          <AdUnit slot="footer" className="mx-auto my-6 max-w-[728px] md:my-8" format="horizontal" />
         </div>
         <Footer />
         <AdUnit slot="mobile-sticky" mobileOnly className="fixed bottom-0 left-0 right-0 z-50 m-0 bg-white px-2 py-1 shadow-[0_-8px_24px_rgba(0,0,0,0.08)]" />
