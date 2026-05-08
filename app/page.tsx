@@ -27,7 +27,17 @@ export default function HomePage() {
       <HomeSections posts={postsForClient} />
 
       <Script id="website-schema" type="application/ld+json">
-        {JSON.stringify({ "@context": "https://schema.org", "@type": "WebSite", name: siteConfig.name, url: siteConfig.url })}
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: siteConfig.name,
+          url: siteConfig.url,
+          description: siteConfig.description,
+          publisher: {
+            "@type": "Organization",
+            name: siteConfig.name
+          }
+        })}
       </Script>
     </div>
   );

@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: process.env.NEXT_PUBLIC_SITE_NAME || "Health Fruits Tips",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://healthfruitstips.com",
   description: "Evidence-based health and fruits benefits blog with practical wellness guidance.",
   contact: {
     email: "munashirmehdi@mail.com",

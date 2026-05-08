@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Sarah Mitchell">
+  <rect width="240" height="240" rx="120" fill="#dcfce7"/>
+  <circle cx="120" cy="95" r="44" fill="#fde68a"/>
+  <path d="M64 210c8-40 34-60 56-60s48 20 56 60" fill="#16a34a"/>
+  <path d="M78 92c2-25 18-45 42-45 26 0 42 19 42 45" fill="#334155"/>
+  <circle cx="103" cy="96" r="4" fill="#334155"/>
+  <circle cx="137" cy="96" r="4" fill="#334155"/>
+  <path d="M105 116c10 8 20 8 30 0" stroke="#334155" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

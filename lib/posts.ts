@@ -8,8 +8,11 @@ export type Post = {
   title: string;
   slug: string;
   date: string;
+  lastModified?: string;
   category: string;
   author: string;
+  authorId?: string;
+  authorTitle?: string;
   authorBio: string;
   readTime: string;
   metaTitle: string;

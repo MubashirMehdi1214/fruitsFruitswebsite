@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Maria Chen">
+  <rect width="240" height="240" rx="120" fill="#fae8ff"/>
+  <circle cx="120" cy="95" r="44" fill="#fde68a"/>
+  <path d="M64 210c8-40 34-60 56-60s48 20 56 60" fill="#be185d"/>
+  <path d="M76 90c4-28 20-48 44-48s40 20 44 48" fill="#4b5563"/>
+  <circle cx="103" cy="97" r="4" fill="#374151"/>
+  <circle cx="137" cy="97" r="4" fill="#374151"/>
+  <path d="M104 118c10 8 22 8 32 0" stroke="#374151" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

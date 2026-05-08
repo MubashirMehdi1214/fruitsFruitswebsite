@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: { default: siteConfig.name, template: `%s | ${siteConfig.name}` },
   description: siteConfig.description,
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "XXXXXXXXXX"
+  },
   alternates: { canonical: "/" },
   openGraph: { title: siteConfig.name, description: siteConfig.description, url: siteConfig.url, siteName: siteConfig.name, type: "website" },
   twitter: { card: "summary_large_image", title: siteConfig.name, description: siteConfig.description }
@@ -45,6 +48,41 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"}`} strategy="afterInteractive" />
         <Script id="ga4" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"}');`}
+        </Script>
+        <Script id="ga4-events" strategy="afterInteractive">
+          {`(function () {
+            if (typeof window === 'undefined' || typeof gtag !== 'function') return;
+            const start = Date.now();
+            let maxScroll = 0;
+            const scrollHandler = function () {
+              const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+              if (docHeight <= 0) return;
+              const pct = Math.round((window.scrollY / docHeight) * 100);
+              if (pct > maxScroll) maxScroll = pct;
+            };
+            window.addEventListener('scroll', scrollHandler, { passive: true });
+            document.addEventListener('click', function (e) {
+              const target = e.target;
+              if (!target || !(target instanceof Element)) return;
+              const el = target.closest('a,button');
+              if (!el) return;
+              gtag('event', 'ui_click', { label: (el.textContent || '').trim().slice(0, 60) });
+            });
+            window.addEventListener('beforeunload', function () {
+              gtag('event', 'engagement_summary', {
+                scroll_depth: maxScroll,
+                time_on_page_sec: Math.round((Date.now() - start) / 1000)
+              });
+            });
+          })();`}
+        </Script>
+        <Script id="org-schema" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: siteConfig.name,
+            url: siteConfig.url
+          })}
         </Script>
       </body>
     </html>

@@ -12,6 +12,7 @@ import ReadingProgressBar from "@/components/ReadingProgressBar";
 import RelatedPosts from "@/components/RelatedPosts";
 import ShareButtons from "@/components/ShareButtons";
 import TableOfContents from "@/components/TableOfContents";
+import { authors } from "@/lib/authors";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/posts";
 import { categories, categorySlug, siteConfig } from "@/lib/utils";
 
@@ -78,6 +79,9 @@ export default async function BlogPostPage({ params }: Params) {
     }
   });
   const postUrl = `${siteConfig.url}/blog/${post.slug}`;
+  const profile = post.authorId ? authors[post.authorId] : undefined;
+  const publishedDate = new Date(post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const updatedDate = new Date(post.lastModified || post.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
   return (
     <div className="container-default max-w-[1200px] py-8 md:py-10">
@@ -98,10 +102,10 @@ export default async function BlogPostPage({ params }: Params) {
               </span>
               <span className="font-medium text-gray-700">{post.author}</span>
             </div>
-            <span>{new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
+            <span>Published: {publishedDate}</span>
             <span>{post.readTime}</span>
             <span>{estimatedViews.toLocaleString()} views</span>
-            <span>Updated: {new Date(post.date).toLocaleDateString("en-US")}</span>
+            <span>Last Updated: {updatedDate}</span>
           </div>
           <ShareButtons url={postUrl} title={post.title} />
           <div className="mt-6 overflow-hidden rounded-2xl">
@@ -130,7 +134,14 @@ export default async function BlogPostPage({ params }: Params) {
           </section>
           <ShareButtons url={postUrl} title={post.title} />
           <div className="mt-8">
-            <AuthorBio author={post.author} bio={post.authorBio} />
+            <AuthorBio
+              author={post.author}
+              bio={post.authorBio}
+              title={post.authorTitle || profile?.title}
+              avatar={profile?.avatar}
+              linkedin={profile?.linkedin}
+              lastUpdated={updatedDate}
+            />
           </div>
           <AdUnit slot="between-posts" desktopOnly />
           <RelatedPosts posts={related} />
@@ -185,7 +196,7 @@ export default async function BlogPostPage({ params }: Params) {
           author: { "@type": "Person", name: post.author },
           image: [`${siteConfig.url}${post.featuredImage}`],
           datePublished: post.date,
-          dateModified: post.date,
+          dateModified: post.lastModified || post.date,
           mainEntityOfPage: postUrl
         })}
       </Script>

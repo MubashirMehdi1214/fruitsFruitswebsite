@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Dr James Parker">
+  <rect width="240" height="240" rx="120" fill="#dbeafe"/>
+  <circle cx="120" cy="92" r="42" fill="#fde68a"/>
+  <path d="M66 210c8-42 32-62 54-62s46 20 54 62" fill="#0284c7"/>
+  <path d="M82 86c4-28 18-42 38-42s34 14 38 42" fill="#1f2937"/>
+  <circle cx="104" cy="95" r="4" fill="#1f2937"/>
+  <circle cx="136" cy="95" r="4" fill="#1f2937"/>
+  <path d="M104 116c10 7 22 7 32 0" stroke="#1f2937" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>
