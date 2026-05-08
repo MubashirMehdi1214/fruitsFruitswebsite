@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
-import { categories, categorySlug } from "@/lib/utils";
+import { categories, categorySlug, siteConfig } from "@/lib/utils";
 
 export default function Footer() {
   const recent = getAllPosts().slice(0, 3);
+  const contact = siteConfig.contact;
 
   return (
     <footer className="mt-16 bg-[#0f172a] py-12 text-slate-200">
@@ -11,6 +12,8 @@ export default function Footer() {
         <div>
           <p className="text-lg font-bold">🍃 Health Fruits Tips</p>
           <p className="mt-3 text-sm text-slate-300">Trusted guides on fruits, vegetables, natural remedies, and practical wellness.</p>
+          <p className="mt-3 text-xs text-slate-300">{contact.phone}</p>
+          <p className="text-xs text-slate-300">{contact.email}</p>
           <div className="mt-4 flex gap-2 text-xs">
             <span className="rounded-full bg-slate-700 px-3 py-1">FB</span>
             <span className="rounded-full bg-slate-700 px-3 py-1">TW</span>

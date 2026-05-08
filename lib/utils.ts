@@ -1,7 +1,17 @@
 export const siteConfig = {
   name: process.env.NEXT_PUBLIC_SITE_NAME || "Health Fruits Tips",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com",
-  description: "Evidence-based health and fruits benefits blog with practical wellness guidance."
+  description: "Evidence-based health and fruits benefits blog with practical wellness guidance.",
+  contact: {
+    email: "munashirmehdi@mail.com",
+    phone: "+92 311 518 9291",
+    whatsapp: "+92 311 518 9291",
+    addressLine1: "GBDRYFRUITS Headquarters",
+    addressLine2: "123 Commercial Street, Block A",
+    cityCountry: "Karachi, Pakistan 75000",
+    hoursWeek: "Monday - Saturday: 9:00 AM - 7:00 PM",
+    hoursWeekend: "Sunday: 10:00 AM - 6:00 PM"
+  }
 };
 
 export const categories = [
