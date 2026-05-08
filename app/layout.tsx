@@ -25,13 +25,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.variable} ${merriweather.variable} font-sans`}>
         <Header />
         <div className="container-default">
-          <AdUnit slot="header" />
+          <AdUnit slot="header" desktopOnly className="mx-auto max-w-[728px]" format="horizontal" />
         </div>
         <main>{children}</main>
         <div className="container-default">
-          <AdUnit slot="footer" />
+          <AdUnit slot="footer" className="mx-auto max-w-[728px]" format="horizontal" />
         </div>
         <Footer />
+        <AdUnit slot="mobile-sticky" mobileOnly className="fixed bottom-0 left-0 right-0 z-50 m-0 bg-white px-2 py-1 shadow-[0_-8px_24px_rgba(0,0,0,0.08)]" />
+        {process.env.NEXT_PUBLIC_ADSENSE_ID && (
+          <Script
+            id="adsense-script"
+            strategy="lazyOnload"
+            async
+            crossOrigin="anonymous"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
+          />
+        )}
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"}`} strategy="afterInteractive" />
         <Script id="ga4" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || "G-XXXXXXXXXX"}');`}

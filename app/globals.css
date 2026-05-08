@@ -4,6 +4,7 @@
 
 body {
   @apply bg-gray-50 text-gray-800;
+  overflow-x: hidden;
 }
 
 .container-default {
@@ -11,13 +12,63 @@ body {
 }
 
 .prose-blog h2 {
-  @apply mt-8 text-2xl font-bold text-gray-900;
+  @apply mt-10 border-l-4 border-green-600 pl-4 text-[1.5rem] font-bold text-gray-900 md:text-[2rem];
 }
 
 .prose-blog h3 {
-  @apply mt-6 text-xl font-semibold text-gray-900;
+  @apply mt-8 text-[1.125rem] font-semibold text-gray-800 md:text-[1.35rem];
 }
 
 .prose-blog p {
-  @apply mt-4 leading-7 text-gray-700;
+  @apply mt-5 text-base leading-[1.8] text-[#374151] md:text-[18px];
+}
+
+.prose-blog strong {
+  @apply text-green-800;
+}
+
+.prose-blog a {
+  @apply text-green-700 underline decoration-green-600 underline-offset-2;
+}
+
+.prose-blog ul {
+  @apply mt-5 space-y-3 pl-0;
+  list-style: none;
+}
+
+.prose-blog ul li {
+  @apply relative pl-8 text-[#374151];
+}
+
+.prose-blog ul li::before {
+  content: "✓";
+  @apply absolute left-0 top-0.5 text-green-600;
+}
+
+.prose-blog blockquote {
+  @apply my-6 border-l-4 border-green-600 bg-green-50 px-4 py-3 text-green-900;
+}
+
+.prose-blog .info-box,
+.prose-blog .warning-box,
+.prose-blog .tip-box {
+  @apply my-6 rounded-xl p-4;
+}
+
+.prose-blog .info-box {
+  @apply bg-green-50 text-green-900;
+}
+
+.prose-blog .warning-box {
+  @apply bg-yellow-50 text-yellow-900;
+}
+
+.prose-blog .tip-box {
+  @apply bg-sky-50 text-sky-900;
+}
+
+@media (max-width: 768px) {
+  .prose-blog p {
+    @apply text-base;
+  }
 }
