@@ -38,6 +38,7 @@ export default function Header() {
             )}
           </div>
           <Link href="/about" className="min-h-[44px] py-2 hover:text-brand">About</Link>
+          <Link href="/free-guides" className="min-h-[44px] py-2 hover:text-brand">Free Guides</Link>
           <Link href="/contact" className="min-h-[44px] py-2 hover:text-brand">Contact</Link>
           <button type="button" onClick={() => setShowSearch((prev) => !prev)} className="rounded-full p-2 text-gray-600" aria-label="Toggle search">
             <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
@@ -88,6 +89,7 @@ export default function Header() {
             </Link>
           ))}
           <Link href="/about" onClick={() => setMobileOpen(false)} className="block min-h-[44px] rounded-lg px-3 py-3 text-gray-700 hover:bg-green-50">About</Link>
+          <Link href="/free-guides" onClick={() => setMobileOpen(false)} className="block min-h-[44px] rounded-lg px-3 py-3 text-gray-700 hover:bg-green-50">Free Guides</Link>
           <Link href="/contact" onClick={() => setMobileOpen(false)} className="block min-h-[44px] rounded-lg px-3 py-3 text-gray-700 hover:bg-green-50">Contact</Link>
         </nav>
       </aside>
