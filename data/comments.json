@@ -1,0 +1,117 @@
+{
+  "mango-health-benefits": [
+    {
+      "id": "mango-c1",
+      "name": "Sarah K.",
+      "email": "sarahk@example.com",
+      "comment": "I had no idea mango had so much Vitamin C. I started adding it to breakfast and my energy feels better.",
+      "createdAt": "2026-05-08T09:00:00.000Z"
+    },
+    {
+      "id": "mango-c2",
+      "name": "Muhammad Ali",
+      "email": "mali@example.com",
+      "comment": "The blood sugar section was very helpful. Portion control plus yogurt worked well for me.",
+      "createdAt": "2026-05-04T14:20:00.000Z"
+    },
+    {
+      "id": "mango-c3",
+      "name": "Nadia R.",
+      "email": "nadiar@example.com",
+      "comment": "Excellent breakdown and practical tips. The nutrient table made it easy to understand.",
+      "createdAt": "2026-05-02T18:35:00.000Z"
+    }
+  ],
+  "apple-health-benefits": [
+    {
+      "id": "apple-c1",
+      "name": "Arham",
+      "email": "arham@example.com",
+      "comment": "Started eating one apple daily and my afternoon cravings are noticeably lower.",
+      "createdAt": "2026-05-07T10:40:00.000Z"
+    },
+    {
+      "id": "apple-c2",
+      "name": "Hina M.",
+      "email": "hina@example.com",
+      "comment": "Great explanation about whole apples vs juice. This cleared up a lot for me.",
+      "createdAt": "2026-05-03T15:22:00.000Z"
+    },
+    {
+      "id": "apple-c3",
+      "name": "Bilal Q.",
+      "email": "bilalq@example.com",
+      "comment": "Loved the practical section on pairing with protein. Very useful article.",
+      "createdAt": "2026-05-01T08:12:00.000Z"
+    }
+  ],
+  "garlic-immunity-benefits": [
+    {
+      "id": "garlic-c1",
+      "name": "Farah S.",
+      "email": "farah@example.com",
+      "comment": "The crush-and-wait tip was new for me. I am now using garlic more effectively.",
+      "createdAt": "2026-05-09T12:05:00.000Z"
+    },
+    {
+      "id": "garlic-c2",
+      "name": "Usman",
+      "email": "usman@example.com",
+      "comment": "Balanced and realistic article. I appreciate the medication caution section.",
+      "createdAt": "2026-05-05T11:10:00.000Z"
+    },
+    {
+      "id": "garlic-c3",
+      "name": "Kiran A.",
+      "email": "kiran@example.com",
+      "comment": "Very clear writing and evidence references. Helped me answer family questions.",
+      "createdAt": "2026-05-02T19:50:00.000Z"
+    }
+  ],
+  "turmeric-health-benefits": [
+    {
+      "id": "turmeric-c1",
+      "name": "Mehak",
+      "email": "mehak@example.com",
+      "comment": "The section on realistic expectations is excellent. Finally, no hype and clear guidance.",
+      "createdAt": "2026-05-08T06:45:00.000Z"
+    },
+    {
+      "id": "turmeric-c2",
+      "name": "Adeel",
+      "email": "adeel@example.com",
+      "comment": "I started adding turmeric with black pepper in soups. Easy and practical.",
+      "createdAt": "2026-05-04T20:11:00.000Z"
+    },
+    {
+      "id": "turmeric-c3",
+      "name": "Rimsha",
+      "email": "rimsha@example.com",
+      "comment": "Thanks for including precautions. That part is usually missing elsewhere.",
+      "createdAt": "2026-05-03T13:34:00.000Z"
+    }
+  ],
+  "green-tea-benefits": [
+    {
+      "id": "greentea-c1",
+      "name": "Sami",
+      "email": "sami@example.com",
+      "comment": "Switching from sugary drinks to green tea has helped me a lot. Great article.",
+      "createdAt": "2026-05-09T07:25:00.000Z"
+    },
+    {
+      "id": "greentea-c2",
+      "name": "Noreen B.",
+      "email": "noreen@example.com",
+      "comment": "Loved the cultural context with science. It made the advice feel very practical.",
+      "createdAt": "2026-05-06T17:47:00.000Z"
+    },
+    {
+      "id": "greentea-c3",
+      "name": "Hamza R.",
+      "email": "hamza@example.com",
+      "comment": "Helpful explanation about caffeine and timing. My sleep has improved after changing timing.",
+      "createdAt": "2026-05-02T21:12:00.000Z"
+    }
+  ]
+}

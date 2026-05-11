@@ -19,7 +19,9 @@ export default function HomePage() {
     date: post.date,
     category: post.category,
     readTime: post.readTime,
-    metaDescription: post.metaDescription
+    metaDescription: post.metaDescription,
+    lastModified: post.lastModified,
+    tags: post.tags
   }));
 
   return (

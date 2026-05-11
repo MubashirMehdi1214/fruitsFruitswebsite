@@ -6,15 +6,19 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import AdUnit from "@/components/AdUnit";
 import AuthorBio from "@/components/AuthorBio";
 import BackToTopButton from "@/components/BackToTopButton";
+import BlogSidebar from "@/components/BlogSidebar";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CommentsSection from "@/components/CommentsSection";
 import FAQAccordion from "@/components/FAQAccordion";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
 import RelatedPosts from "@/components/RelatedPosts";
 import ShareButtons from "@/components/ShareButtons";
 import TableOfContents from "@/components/TableOfContents";
 import { authors } from "@/lib/authors";
-import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/posts";
-import { categories, categorySlug, siteConfig } from "@/lib/utils";
+import { getAllPosts, getPostBySlug, getPostViews, getRelatedPosts } from "@/lib/posts";
+import { getCommentCount, getCommentsBySlug } from "@/lib/comments";
+import { categorySlug, siteConfig } from "@/lib/utils";
+import Link from "next/link";
 
 type Params = { params: { slug: string } };
 
@@ -40,10 +44,11 @@ export default async function BlogPostPage({ params }: Params) {
   if (!post) notFound();
   const allPosts = getAllPosts();
   const related = getRelatedPosts(post.slug, post.category, 3);
-  const popularPosts = allPosts.filter((item) => item.slug !== post.slug).slice(0, 5);
   const toSlug = (value: string) => value.toLowerCase().replace(/[^\w\s]/g, "").replace(/\s+/g, "-");
   const toc = [...post.content.matchAll(/^##\s+(.+)$/gm)].map((m) => ({ id: toSlug(m[1]), text: m[1] }));
-  const estimatedViews = 1500 + post.slug.length * 123;
+  const estimatedViews = getPostViews(post.slug);
+  const commentCount = getCommentCount(post.slug);
+  const comments = getCommentsBySlug(post.slug);
 
   const faqSectionMatch = post.content.match(/##\s+FAQ([\s\S]*?)(?=\n##\s+Conclusion|\n##\s+[^\n]+)/m);
   const faqItems = faqSectionMatch
@@ -86,7 +91,7 @@ export default async function BlogPostPage({ params }: Params) {
   return (
     <div className="container-default max-w-[1200px] py-8 md:py-10">
       <ReadingProgressBar />
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Blog", href: "/" }, { label: post.title }]} />
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: post.category, href: `/category/${categorySlug(post.category)}` }, { label: post.title }]} />
       <div className="grid gap-8 lg:grid-cols-[70%_30%]">
         <article className="rounded-2xl bg-white p-5 md:p-8">
           <span className="inline-flex rounded-full bg-green-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-green-700">
@@ -95,6 +100,7 @@ export default async function BlogPostPage({ params }: Params) {
           <h1 className="mt-4 font-serif text-[1.8rem] font-bold leading-tight text-gray-900 md:text-[2.5rem]">
             {post.title}
           </h1>
+          <p className="mt-2 text-sm text-gray-500">{commentCount} comments</p>
           <div className="mt-5 flex flex-wrap items-center gap-4 border-y border-gray-100 py-4 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <span className="grid h-10 w-10 place-items-center rounded-full bg-green-100 font-semibold text-green-700">
@@ -106,6 +112,7 @@ export default async function BlogPostPage({ params }: Params) {
             <span>{post.readTime}</span>
             <span>{estimatedViews.toLocaleString()} views</span>
             <span>Last Updated: {updatedDate}</span>
+            <span>{commentCount} comments</span>
           </div>
           <ShareButtons url={postUrl} title={post.title} />
           <div className="mt-6 overflow-hidden rounded-2xl">
@@ -128,9 +135,15 @@ export default async function BlogPostPage({ params }: Params) {
               Build healthy habits consistently, combine whole foods, and use evidence-based guidance for long-term wellness.
             </p>
           </section>
-          <section className="mt-8 rounded-xl border border-dashed border-gray-300 bg-white p-5">
-            <h3 className="text-xl font-bold text-gray-900">Comments</h3>
-            <p className="mt-2 text-gray-600">Comments section coming soon.</p>
+          <section className="mt-8">
+            <h3 className="text-lg font-bold text-gray-900">Article Tags</h3>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <Link key={tag} href={`/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`} className="rounded-full bg-green-50 px-3 py-1 text-sm text-green-700">
+                  #{tag}
+                </Link>
+              ))}
+            </div>
           </section>
           <ShareButtons url={postUrl} title={post.title} />
           <div className="mt-8">
@@ -145,40 +158,11 @@ export default async function BlogPostPage({ params }: Params) {
           </div>
           <AdUnit slot="between-posts" desktopOnly />
           <RelatedPosts posts={related} />
+          <CommentsSection slug={post.slug} initialComments={comments} />
         </article>
         <aside className="space-y-6">
           <div className="hidden lg:block">
-            <div className="sticky top-24 space-y-6">
-              <TableOfContents items={toc} />
-              <AdUnit slot="sidebar-1" format="rectangle" className="mx-auto max-w-[300px]" />
-              <section className="rounded-xl border bg-white p-4">
-                <h3 className="text-base font-bold text-gray-900">Popular Posts</h3>
-                <div className="mt-4 space-y-4">
-                  {popularPosts.map((item) => (
-                    <a key={item.slug} href={`/blog/${item.slug}`} className="flex gap-3">
-                      <Image src={item.featuredImage} alt={item.title} width={88} height={66} className="h-16 w-20 rounded-md object-cover" />
-                      <p className="line-clamp-2 text-sm font-medium text-gray-700 hover:text-green-700">{item.title}</p>
-                    </a>
-                  ))}
-                </div>
-              </section>
-              <section className="rounded-xl border bg-white p-4">
-                <h3 className="text-base font-bold text-gray-900">Categories</h3>
-                <ul className="mt-3 space-y-2">
-                  {categories.map((category) => (
-                    <li key={category}>
-                      <a href={`/category/${categorySlug(category)}`} className="flex items-center justify-between text-sm text-gray-700 hover:text-green-700">
-                        <span>{category}</span>
-                        <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700">
-                          {allPosts.filter((item) => item.category === category).length}
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-              <AdUnit slot="sidebar-2" format="rectangle" className="mx-auto max-w-[300px]" />
-            </div>
+            <BlogSidebar allPosts={allPosts} currentSlug={post.slug} />
           </div>
         </aside>
       </div>

@@ -13,6 +13,8 @@ type HomePost = {
   category: string;
   readTime: string;
   metaDescription: string;
+  lastModified?: string;
+  tags: string[];
 };
 
 type Props = { posts: HomePost[] };
@@ -75,7 +77,13 @@ const categoryVisuals: Record<string, { icon: string; tone: string }> = {
   "Home Remedies": { icon: "🌿", tone: "from-amber-400 to-orange-500" },
   "Healthy Recipes": { icon: "🍵", tone: "from-pink-500 to-red-500" },
   "Vitamins & Minerals": { icon: "💊", tone: "from-blue-500 to-purple-500" },
-  "Weight Loss Tips": { icon: "🥗", tone: "from-teal-500 to-green-500" }
+  "Weight Loss Tips": { icon: "🥗", tone: "from-teal-500 to-green-500" },
+  Superfoods: { icon: "⭐", tone: "from-fuchsia-500 to-violet-500" },
+  "Nuts and Seeds": { icon: "🥜", tone: "from-amber-500 to-yellow-500" },
+  "Herbs and Spices": { icon: "🧂", tone: "from-lime-500 to-green-600" },
+  "Juices and Drinks": { icon: "🥤", tone: "from-cyan-500 to-sky-500" },
+  "Mental Health Foods": { icon: "🧠", tone: "from-indigo-500 to-blue-600" },
+  "Pregnancy Nutrition": { icon: "🤰", tone: "from-rose-500 to-pink-500" }
 };
 
 const tips = [
@@ -176,7 +184,7 @@ function AnimatedStats({ totalArticles }: { totalArticles: number }) {
   }, []);
 
   const countArticles = useCountUp(totalArticles, visible);
-  const countCategories = useCountUp(6, visible);
+  const countCategories = useCountUp(Object.keys(categoryVisuals).length, visible);
   const countFree = useCountUp(100, visible);
   const countReaders = useCountUp(50, visible);
 
@@ -297,6 +305,14 @@ export default function HomeSections({ posts }: Props) {
   }, [paused]);
 
   const featuredWide = posts.find((post) => post.slug === "pomegranate-benefits") || posts[0];
+  const recentlyUpdated = posts
+    .filter((post) => post.lastModified && Date.now() - +new Date(post.lastModified) <= 7 * 24 * 60 * 60 * 1000)
+    .slice(0, 3);
+  const tagCounts = new Map<string, number>();
+  posts.forEach((post) => post.tags.forEach((tag) => tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)));
+  const popularTags = Array.from(tagCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 15);
 
   return (
     <>
@@ -363,6 +379,17 @@ export default function HomeSections({ posts }: Props) {
         </div>
       </section>
 
+      <section className="mt-4 rounded-xl border border-green-100 bg-white p-4">
+        <p className="text-sm font-semibold text-gray-700">As featured in:</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {["WebMD Style", "Healthline Style", "NIH Style"].map((badge) => (
+            <span key={badge} className="rounded-full border border-green-200 bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">
+              {badge}
+            </span>
+          ))}
+        </div>
+      </section>
+
       <div className="mt-8"><AnimatedStats totalArticles={posts.length} /></div>
 
       <section className="mt-14">
@@ -382,6 +409,22 @@ export default function HomeSections({ posts }: Props) {
           ))}
         </div>
       </section>
+
+      {recentlyUpdated.length > 0 && (
+        <section className="mt-14">
+          <h2 className="text-3xl font-bold text-gray-900">Recently Updated Articles</h2>
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            {recentlyUpdated.map((post) => (
+              <article key={post.slug} className="rounded-xl border bg-white p-5 shadow-sm">
+                <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">Updated</span>
+                <h3 className="mt-3 text-lg font-bold text-gray-900">{post.title}</h3>
+                <p className="mt-2 text-sm text-gray-600">{post.metaDescription}</p>
+                <Link href={`/blog/${post.slug}`} className="mt-3 inline-block text-sm font-semibold text-green-700">Read more →</Link>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mt-12">
         <h2 className="text-3xl font-bold text-gray-900">Quick Health Tips</h2>
@@ -414,6 +457,16 @@ export default function HomeSections({ posts }: Props) {
       )}
 
       <AdUnit slot="between-posts" className="mx-auto max-w-[728px]" format="horizontal" />
+      <section className="mt-10 rounded-2xl border border-green-100 bg-white p-5">
+        <h3 className="text-2xl font-bold text-gray-900">Popular Tags</h3>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {popularTags.map(([tag, count]) => (
+            <Link key={tag} href={`/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`} className="rounded-full bg-green-50 px-3 py-1 text-sm font-medium text-green-700">
+              #{tag} ({count})
+            </Link>
+          ))}
+        </div>
+      </section>
       <LatestArticles posts={posts} />
 
       <section className="mt-14 rounded-3xl bg-gradient-to-r from-green-900 to-green-700 p-6 text-white md:p-10">

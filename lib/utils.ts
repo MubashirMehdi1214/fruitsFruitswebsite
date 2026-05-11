@@ -20,7 +20,13 @@ export const categories = [
   "Home Remedies",
   "Healthy Recipes",
   "Vitamins & Minerals",
-  "Weight Loss Tips"
+  "Weight Loss Tips",
+  "Superfoods",
+  "Nuts and Seeds",
+  "Herbs and Spices",
+  "Juices and Drinks",
+  "Mental Health Foods",
+  "Pregnancy Nutrition"
 ];
 
 export const categorySlug = (category: string) =>
